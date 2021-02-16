@@ -35,6 +35,9 @@ public class Performer extends User {
     @Column(length = 1000)
     private String aboutInfo;
 
+    @Column
+    private String cardNumber;
+
     @Column(nullable = false)
     private Timestamp birthDate;
 

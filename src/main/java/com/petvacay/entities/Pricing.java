@@ -19,6 +19,9 @@ public class Pricing {
     private long pricingId;
 
     @Column
+    private int price;
+
+    @Column
     private Timestamp date;
 
     @Column(length = 1000)
