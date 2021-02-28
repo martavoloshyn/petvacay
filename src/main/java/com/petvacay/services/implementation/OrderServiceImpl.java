@@ -55,6 +55,11 @@ public class OrderServiceImpl implements OrderService {
         return newOrderMapper.convertToDto(orderRepository.save(order));
     }
 
+    @Override
+    public boolean existsOrderById(long orderId) {
+        return orderRepository.existsOrderByOrderId(orderId);
+    }
+
     private Order createOrderFromDtoData(NewOrderDTO newOrder) {
         Order order = newOrderMapper.convertToModel(newOrder);
         order.setOrderStatus(orderStatusService.getOrderStatus(OrderStatusConst.CREATED));

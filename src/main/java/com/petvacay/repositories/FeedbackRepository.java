@@ -3,6 +3,8 @@ package com.petvacay.repositories;
 import com.petvacay.entities.Feedback;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 public interface FeedbackRepository extends JpaRepository<Feedback, Long> {
-    Feedback findFeedbackByOrderOrderId(long orderId);
+    Optional<Feedback> findFeedbackByOrderOrderId(long orderId);
 }

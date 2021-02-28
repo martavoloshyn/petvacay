@@ -6,6 +6,10 @@ import com.petvacay.entities.OrderStatus;
 
 public interface OrderService {
     OrderDTO getOrderById(long orderId);
+
     void updateOrderStatus(long orderId, OrderStatus orderStatus);
-    NewOrderDTO createOrder (NewOrderDTO newOrder);
+
+    NewOrderDTO createOrder(NewOrderDTO newOrder);
+
+    boolean existsOrderById(long orderId);
 }
