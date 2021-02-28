@@ -8,7 +8,7 @@ import java.util.Map;
 
 @Data
 @NoArgsConstructor
-public class ExceptionResponse {
+class ExceptionResponse {
     private String message;
     @JsonIgnore
     private String timeStamp;
@@ -20,7 +20,7 @@ public class ExceptionResponse {
     /**
      * Constructor with parameters.
      */
-    public ExceptionResponse(Map<String, Object> errorAttributes) {
+    ExceptionResponse(Map<String, Object> errorAttributes) {
         this.setPath((String) errorAttributes.get("path"));
         this.setMessage((String) errorAttributes.get("message"));
         this.setTimeStamp(errorAttributes.get("timestamp").toString());

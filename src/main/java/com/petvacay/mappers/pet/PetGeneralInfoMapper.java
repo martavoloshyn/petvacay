@@ -32,19 +32,15 @@ public class PetGeneralInfoMapper implements GeneralMapper<Pet, PetGeneralInfoDT
                 .build();
     }
 
-    public List<PetGeneralInfoDTO> convertListToDto(List<Pet> categories) {
+    public List<PetGeneralInfoDTO> convertListToDto(List<Pet> petModels) {
         List<PetGeneralInfoDTO> petDtos = new ArrayList<>();
-        for (Pet category : categories) {
-            petDtos.add(convertToDto(category));
-        }
+        petModels.forEach((petModel) -> petDtos.add(convertToDto(petModel)));
         return petDtos;
     }
 
     public List<Pet> convertListToModel(List<PetGeneralInfoDTO> petDtos) {
         List<Pet> petModels = new ArrayList<>();
-        for (PetGeneralInfoDTO petDto : petDtos) {
-            petModels.add(convertToModel(petDto));
-        }
+        petDtos.forEach((petDto)->petModels.add(convertToModel(petDto)));
         return petModels;
     }
 }
