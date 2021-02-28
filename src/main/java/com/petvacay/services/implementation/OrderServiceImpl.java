@@ -2,7 +2,7 @@ package com.petvacay.services.implementation;
 
 import com.petvacay.constants.ErrorMessage;
 import com.petvacay.constants.OrderStatusConst;
-import com.petvacay.dto.order.NewOrderDto;
+import com.petvacay.dto.order.NewOrderDTO;
 import com.petvacay.dto.order.OrderDTO;
 import com.petvacay.entities.Order;
 import com.petvacay.entities.OrderStatus;
@@ -42,7 +42,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void updateOrderStatus (long orderId, OrderStatus orderStatus) {
+    public void updateOrderStatus(long orderId, OrderStatus orderStatus) {
         Order orderToUpdate = orderRepository.findById(orderId)
                 .orElseThrow(() -> new NoObjectFoundById(ErrorMessage.ORDER_NOT_FOUND_BY_ID + orderId));
         orderToUpdate.setOrderStatus(orderStatus);
@@ -50,12 +50,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public NewOrderDto createOrder(NewOrderDto newOrder) {
+    public NewOrderDTO createOrder(NewOrderDTO newOrder) {
         Order order = createOrderFromDtoData(newOrder);
         return newOrderMapper.convertToDto(orderRepository.save(order));
     }
 
-    private Order createOrderFromDtoData (NewOrderDto newOrder) {
+    private Order createOrderFromDtoData(NewOrderDTO newOrder) {
         Order order = newOrderMapper.convertToModel(newOrder);
         order.setOrderStatus(orderStatusService.getOrderStatus(OrderStatusConst.CREATED));
         return order;

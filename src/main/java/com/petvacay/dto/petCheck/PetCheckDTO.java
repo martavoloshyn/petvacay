@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 @AllArgsConstructor
 @NoArgsConstructor
 @Component
-public class PetCheckDto {
+public class PetCheckDTO {
 
     private long petCheckId;
 

@@ -19,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Component
-public class NewOrderDto {
+public class NewOrderDTO {
     private long orderId;
 
     private String comment;

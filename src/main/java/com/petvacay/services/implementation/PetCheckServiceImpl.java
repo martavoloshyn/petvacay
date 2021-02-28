@@ -1,6 +1,6 @@
 package com.petvacay.services.implementation;
 
-import com.petvacay.dto.petCheck.PetCheckDto;
+import com.petvacay.dto.petCheck.PetCheckDTO;
 import com.petvacay.mappers.petCheck.PetCheckMapper;
 import com.petvacay.repositories.PetCheckRepository;
 import com.petvacay.services.PetCheckService;
@@ -22,7 +22,7 @@ public class PetCheckServiceImpl implements PetCheckService {
     }
 
     @Override
-    public List<PetCheckDto> findPetChecks(long orderId) {
+    public List<PetCheckDTO> findPetChecks(long orderId) {
         return petCheckMapper.convertListToDto(petCheckRepository.findPetChecksByOrderOrderId(orderId));
     }
 }

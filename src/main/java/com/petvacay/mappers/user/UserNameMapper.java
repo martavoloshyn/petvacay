@@ -1,8 +1,6 @@
 package com.petvacay.mappers.user;
 
 import com.petvacay.dto.user.UserNameDTO;
-import com.petvacay.entities.Customer;
-import com.petvacay.entities.Performer;
 import com.petvacay.entities.User;
 import com.petvacay.mappers.GeneralMapper;
 import org.springframework.stereotype.Component;

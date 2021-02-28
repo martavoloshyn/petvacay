@@ -1,9 +1,6 @@
 package com.petvacay.services.implementation;
 
 import com.petvacay.constants.ErrorMessage;
-import com.petvacay.dto.order.NewOrderDto;
-import com.petvacay.dto.order.OrderDTO;
-import com.petvacay.entities.Order;
 import com.petvacay.entities.OrderStatus;
 import com.petvacay.exceptions.NoObjectFoundById;
 import com.petvacay.repositories.OrderStatusRepository;

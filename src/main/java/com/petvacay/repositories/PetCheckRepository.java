@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface PetCheckRepository extends JpaRepository<PetCheck, Long> {
-
     List<PetCheck> findPetChecksByOrderOrderId(long orderId);
 }

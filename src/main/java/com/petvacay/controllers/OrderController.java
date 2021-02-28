@@ -1,11 +1,9 @@
 package com.petvacay.controllers;
 
-import com.petvacay.dto.order.NewOrderDto;
+import com.petvacay.dto.order.NewOrderDTO;
 import com.petvacay.dto.order.OrderDTO;
-import com.petvacay.dto.petCheck.PetCheckDto;
-import com.petvacay.entities.Order;
+import com.petvacay.dto.petCheck.PetCheckDTO;
 import com.petvacay.entities.OrderStatus;
-import com.petvacay.entities.PetCheck;
 import com.petvacay.services.OrderService;
 import com.petvacay.services.PetCheckService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,12 +38,12 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<NewOrderDto> createOrder(@RequestBody NewOrderDto newOrder) {
+    public ResponseEntity<NewOrderDTO> createOrder(@RequestBody NewOrderDTO newOrder) {
         return new ResponseEntity<>(orderService.createOrder(newOrder), HttpStatus.OK);
     }
 
     @GetMapping("/{orderId}/petchecks")
-    public ResponseEntity<List<PetCheckDto>> getPetChecksForOrder (@PathVariable long orderId) {
+    public ResponseEntity<List<PetCheckDTO>> getPetChecksForOrder(@PathVariable long orderId) {
         return new ResponseEntity<>(petCheckService.findPetChecks(orderId), HttpStatus.OK);
     }
 }

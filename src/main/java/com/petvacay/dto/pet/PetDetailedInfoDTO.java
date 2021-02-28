@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PetDetailedInfoDTO {
+
     private long petId;
 
     private String type;

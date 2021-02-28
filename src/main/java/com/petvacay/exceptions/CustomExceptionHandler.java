@@ -19,11 +19,10 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     private ErrorAttributes errorAttributes;
 
     @ExceptionHandler(NoObjectFoundById.class)
-    public final ResponseEntity notFoundException(WebRequest request){
+    public final ResponseEntity notFoundException(WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(getErrorAttributes(request));
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exceptionResponse);
     }
-
 
     private Map<String, Object> getErrorAttributes(WebRequest webRequest) {
         return new HashMap<>(errorAttributes.getErrorAttributes(webRequest, true));

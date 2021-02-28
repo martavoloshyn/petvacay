@@ -10,6 +10,7 @@ import java.util.List;
 
 @Component
 public class PetGeneralInfoMapper implements GeneralMapper<Pet, PetGeneralInfoDTO> {
+
     @Override
     public PetGeneralInfoDTO convertToDto(Pet model) {
         return PetGeneralInfoDTO.builder()
@@ -40,7 +41,7 @@ public class PetGeneralInfoMapper implements GeneralMapper<Pet, PetGeneralInfoDT
 
     public List<Pet> convertListToModel(List<PetGeneralInfoDTO> petDtos) {
         List<Pet> petModels = new ArrayList<>();
-        petDtos.forEach((petDto)->petModels.add(convertToModel(petDto)));
+        petDtos.forEach((petDto) -> petModels.add(convertToModel(petDto)));
         return petModels;
     }
 }

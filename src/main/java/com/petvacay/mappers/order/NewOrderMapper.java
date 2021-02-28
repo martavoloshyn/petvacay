@@ -1,6 +1,6 @@
 package com.petvacay.mappers.order;
 
-import com.petvacay.dto.order.NewOrderDto;
+import com.petvacay.dto.order.NewOrderDTO;
 import com.petvacay.entities.Customer;
 import com.petvacay.entities.Order;
 import com.petvacay.entities.Performer;
@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class NewOrderMapper implements GeneralMapper<Order, NewOrderDto> {
+public class NewOrderMapper implements GeneralMapper<Order, NewOrderDTO> {
 
     private PetGeneralInfoMapper petGeneralInfoMapper;
     private UserNameMapper userNameMapper;
@@ -23,8 +23,8 @@ public class NewOrderMapper implements GeneralMapper<Order, NewOrderDto> {
     }
 
     @Override
-    public NewOrderDto convertToDto(Order model) {
-        return NewOrderDto.builder()
+    public NewOrderDTO convertToDto(Order model) {
+        return NewOrderDTO.builder()
                 .comment(model.getComment())
                 .customer(userNameMapper.convertToDto(model.getCustomer()))
                 .endDate(model.getEndDate())
@@ -37,7 +37,7 @@ public class NewOrderMapper implements GeneralMapper<Order, NewOrderDto> {
     }
 
     @Override
-    public Order convertToModel(NewOrderDto dto) {
+    public Order convertToModel(NewOrderDTO dto) {
         return Order.builder()
                 .customer(new Customer(userNameMapper.convertToModel(dto.getCustomer())))
                 .performer(new Performer(userNameMapper.convertToModel(dto.getPerformer())))
