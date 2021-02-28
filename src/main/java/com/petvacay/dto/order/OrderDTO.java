@@ -2,7 +2,6 @@ package com.petvacay.dto.order;
 
 import com.petvacay.dto.pet.PetGeneralInfoDTO;
 import com.petvacay.dto.user.UserNameDTO;
-import com.petvacay.entities.Feedback;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,8 +29,6 @@ public class OrderDTO {
     private UserNameDTO performer;
 
     private String orderStatus;
-
-    private Feedback feedback;
 
     private List<PetGeneralInfoDTO> pets;
 }

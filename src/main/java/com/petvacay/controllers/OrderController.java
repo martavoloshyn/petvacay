@@ -1,9 +1,11 @@
 package com.petvacay.controllers;
 
+import com.petvacay.dto.feedback.FeedbackDTO;
 import com.petvacay.dto.order.NewOrderDTO;
 import com.petvacay.dto.order.OrderDTO;
 import com.petvacay.dto.petCheck.PetCheckDTO;
 import com.petvacay.entities.OrderStatus;
+import com.petvacay.services.FeedbackService;
 import com.petvacay.services.OrderService;
 import com.petvacay.services.PetCheckService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +21,13 @@ public class OrderController {
 
     private OrderService orderService;
     private PetCheckService petCheckService;
+    private FeedbackService feedbackService;
 
     @Autowired
-    public OrderController(OrderService orderService, PetCheckService petCheckService) {
+    public OrderController(OrderService orderService, PetCheckService petCheckService, FeedbackService feedbackService) {
         this.orderService = orderService;
         this.petCheckService = petCheckService;
+        this.feedbackService = feedbackService;
     }
 
     @GetMapping("/{orderId}")
@@ -46,4 +50,14 @@ public class OrderController {
     public ResponseEntity<List<PetCheckDTO>> getPetChecksForOrder(@PathVariable long orderId) {
         return new ResponseEntity<>(petCheckService.findPetChecks(orderId), HttpStatus.OK);
     }
+
+    @GetMapping("/{orderId}/feedback")
+    public ResponseEntity<FeedbackDTO> getFeedBackForOrder(@PathVariable long orderId) {
+        return new ResponseEntity<>(feedbackService.findFeedbackForOrder(orderId), HttpStatus.OK);
+    }
+
+//    @PostMapping("/{orderId}/feedback")
+//    public ResponseEntity<Feedback> createFeedbackForOrder(@PathVariable long orderId, @RequestBody Feedback feedback) {
+//
+//    }
 }

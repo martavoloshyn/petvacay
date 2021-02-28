@@ -45,10 +45,6 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private List<PetCheck> petChecks;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "feedback_id")
-    private Feedback feedback;
-
     @ManyToMany
     @JoinTable(name = "pets_in_order",
             joinColumns = @JoinColumn(name = "order_id"),

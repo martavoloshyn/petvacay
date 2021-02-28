@@ -26,7 +26,6 @@ public class OrderMapper implements GeneralMapper<Order, OrderDTO> {
                 .comment(model.getComment())
                 .customer(userNameMapper.convertToDto(model.getCustomer()))
                 .endDate(model.getEndDate())
-                .feedback(model.getFeedback())
                 .orderId(model.getOrderId())
                 .orderStatus(model.getOrderStatus().getOrderStatusName())
                 .performer(userNameMapper.convertToDto(model.getPerformer()))
