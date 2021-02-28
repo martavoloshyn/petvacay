@@ -56,4 +56,8 @@ public class Performer extends User {
             joinColumns = @JoinColumn(name = "performer_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private List<Category> categories;
+
+    public Performer(User user) {
+        super(user.userId, user.email, user.password, user.firstName, user.lastName, user.role, user.userStatus);
+    }
 }

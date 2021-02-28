@@ -1,9 +1,6 @@
 package com.petvacay.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,4 +30,8 @@ public class Customer extends User {
 
     @OneToMany(mappedBy = "customer")
     private List<Pet> pets;
+
+    public Customer(User user) {
+        super(user.userId, user.email, user.password, user.firstName, user.lastName, user.role, user.userStatus);
+    }
 }
