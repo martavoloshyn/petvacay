@@ -30,6 +30,6 @@ public class Feedback {
     private Timestamp date;
 
     @OneToOne
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "order_id", unique = true)
     private Order order;
 }

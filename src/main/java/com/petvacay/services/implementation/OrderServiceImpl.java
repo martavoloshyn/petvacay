@@ -6,7 +6,7 @@ import com.petvacay.dto.order.NewOrderDTO;
 import com.petvacay.dto.order.OrderDTO;
 import com.petvacay.entities.Order;
 import com.petvacay.entities.OrderStatus;
-import com.petvacay.exceptions.NoObjectFoundById;
+import com.petvacay.exceptions.NoObjectFoundByIdException;
 import com.petvacay.mappers.order.NewOrderMapper;
 import com.petvacay.mappers.order.OrderMapper;
 import com.petvacay.repositories.OrderRepository;
@@ -37,22 +37,21 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDTO getOrderById(long orderId) {
         Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new NoObjectFoundById(ErrorMessage.ORDER_NOT_FOUND_BY_ID + orderId));
+                .orElseThrow(() -> new NoObjectFoundByIdException(ErrorMessage.ORDER_NOT_FOUND_BY_ID + orderId));
         return orderMapper.convertToDto(order);
     }
 
     @Override
     public void updateOrderStatus(long orderId, OrderStatus orderStatus) {
         Order orderToUpdate = orderRepository.findById(orderId)
-                .orElseThrow(() -> new NoObjectFoundById(ErrorMessage.ORDER_NOT_FOUND_BY_ID + orderId));
+                .orElseThrow(() -> new NoObjectFoundByIdException(ErrorMessage.ORDER_NOT_FOUND_BY_ID + orderId));
         orderToUpdate.setOrderStatus(orderStatus);
         orderRepository.save(orderToUpdate);
     }
 
     @Override
     public NewOrderDTO createOrder(NewOrderDTO newOrder) {
-        Order order = createOrderFromDtoData(newOrder);
-        return newOrderMapper.convertToDto(orderRepository.save(order));
+        return newOrderMapper.convertToDto(orderRepository.save(createOrderFromDtoData(newOrder)));
     }
 
     @Override

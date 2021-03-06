@@ -18,10 +18,16 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
     private ErrorAttributes errorAttributes;
 
-    @ExceptionHandler(NoObjectFoundById.class)
+    @ExceptionHandler(NoObjectFoundByIdException.class)
     public final ResponseEntity notFoundException(WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(getErrorAttributes(request));
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exceptionResponse);
+    }
+
+    @ExceptionHandler(DuplicateFeedbackForOrderEntryException.class)
+    public final ResponseEntity duplicateFeedbackException(WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(getErrorAttributes(request));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exceptionResponse);
     }
 
     private Map<String, Object> getErrorAttributes(WebRequest webRequest) {

@@ -6,5 +6,5 @@ import com.petvacay.entities.Feedback;
 public interface FeedbackService {
     FeedbackDTO findFeedbackForOrder(long orderId);
 
-    FeedbackDTO createFeedback(Feedback feedback);
+    FeedbackDTO createFeedback(long orderId, FeedbackDTO feedback);
 }

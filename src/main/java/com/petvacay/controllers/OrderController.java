@@ -56,8 +56,8 @@ public class OrderController {
         return new ResponseEntity<>(feedbackService.findFeedbackForOrder(orderId), HttpStatus.OK);
     }
 
-//    @PostMapping("/{orderId}/feedback")
-//    public ResponseEntity<Feedback> createFeedbackForOrder(@PathVariable long orderId, @RequestBody Feedback feedback) {
-//
-//    }
+    @PostMapping("/{orderId}/feedback")
+    public ResponseEntity<FeedbackDTO> createFeedbackForOrder(@PathVariable long orderId, @RequestBody FeedbackDTO feedback) {
+        return new ResponseEntity<>(feedbackService.createFeedback(orderId, feedback), HttpStatus.OK);
+    }
 }

@@ -2,7 +2,7 @@ package com.petvacay.services.implementation;
 
 import com.petvacay.constants.ErrorMessage;
 import com.petvacay.entities.OrderStatus;
-import com.petvacay.exceptions.NoObjectFoundById;
+import com.petvacay.exceptions.NoObjectFoundByIdException;
 import com.petvacay.repositories.OrderStatusRepository;
 import com.petvacay.services.OrderStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +21,6 @@ public class OrderStatusServiceImpl implements OrderStatusService {
     @Override
     public OrderStatus getOrderStatus(String orderStatusName) {
         return orderStatusRepository.findOrderStatusByOrderStatusName(orderStatusName)
-                .orElseThrow(() -> new NoObjectFoundById(ErrorMessage.ORDER_STATUS_NOT_FOUND_BY_NAME + orderStatusName));
+                .orElseThrow(() -> new NoObjectFoundByIdException(ErrorMessage.ORDER_STATUS_NOT_FOUND_BY_NAME + orderStatusName));
     }
 }
