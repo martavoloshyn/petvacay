@@ -33,4 +33,8 @@ public class Customer extends User {
 
     @OneToMany(mappedBy = "customer")
     private List<Pet> pets;
+
+    public Customer(User user) {
+        super(user.userId, user.email, user.password, user.firstName, user.lastName, user.role, user.userStatus);
+    }
 }

@@ -1,12 +1,14 @@
 package com.petvacay.entities;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -26,4 +28,8 @@ public class Feedback {
 
     @Column
     private Timestamp date;
+
+    @OneToOne
+    @JoinColumn(name = "order_id", unique = true)
+    private Order order;
 }

@@ -1,0 +1,12 @@
+package com.petvacay.repositories;
+
+import com.petvacay.entities.PetCheck;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface PetCheckRepository extends JpaRepository<PetCheck, Long> {
+    List<PetCheck> findPetChecksByOrderOrderId(long orderId);
+}

@@ -1,6 +1,7 @@
 package com.petvacay.entities;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -42,10 +44,6 @@ public class Order {
 
     @OneToMany(mappedBy = "order")
     private List<PetCheck> petChecks;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "feedback_id")
-    private Feedback feedback;
 
     @ManyToMany
     @JoinTable(name = "pets_in_order",
