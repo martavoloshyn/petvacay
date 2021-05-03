@@ -45,7 +45,7 @@ public class Performer extends User {
     private List<Order> orders;
 
     @OneToMany(mappedBy = "performer")
-    private List<Vacation> vacations;
+    private List<UnavailableDate> unavailableDates;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "pricing_id")

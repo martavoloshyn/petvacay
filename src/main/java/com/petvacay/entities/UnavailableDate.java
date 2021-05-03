@@ -11,12 +11,12 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "vacations")
-public class Vacation {
+@Table(name = "unavailable_dates")
+public class UnavailableDate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long vacationId;
+    private long unavailableDateId;
 
     @Column
     private Timestamp startDate;
