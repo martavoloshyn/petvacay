@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -19,10 +19,12 @@ public class UnavailableDate {
     private long unavailableDateId;
 
     @Column
-    private Timestamp startDate;
+    @Temporal(TemporalType.DATE)
+    private Date startDate;
 
     @Column
-    private Timestamp endDate;
+    @Temporal(TemporalType.DATE)
+    private Date endDate;
 
     @ManyToOne
     @JoinColumn(name = "performer_id")

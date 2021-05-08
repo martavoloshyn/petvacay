@@ -28,8 +28,8 @@ public class PerformerController {
     @GetMapping("/filter")
     public ResponseEntity<List<PerformerPreviewDTO>> filterPerformers(
             @RequestParam(value = "categories", required = false) List<Long> categories,
-            @RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "ddMMyyyy") Date startDate,
-            @RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "ddMMyyyy") Date endDate,
+            @RequestParam(value = "startDate") @DateTimeFormat(pattern = "ddMMyyyy") Date startDate,
+            @RequestParam(value = "endDate") @DateTimeFormat(pattern = "ddMMyyyy") Date endDate,
             @RequestParam(value = "city", required = false) String city) {
         return new ResponseEntity<>(performerService.filterPerformers(categories,
                 startDate,
