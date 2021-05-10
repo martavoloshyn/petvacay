@@ -1,6 +1,7 @@
 package com.petvacay.controllers;
 
 import com.petvacay.dto.user.UserRegistrationDto;
+import com.petvacay.exceptions.InvalidUserRegistrationDataException;
 import com.petvacay.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,9 +21,13 @@ public class RegistrationController {
 
     @PostMapping
     public ResponseEntity<UserRegistrationDto> registration(@RequestBody UserRegistrationDto dto) {
-        userService.validateUser(dto);
-        userService.registerUser(dto);
-        return new ResponseEntity<>(dto, HttpStatus.OK);
+        try {
+            userService.validateUser(dto);
+            userService.registerUser(dto);
+            return new ResponseEntity<>(dto, HttpStatus.OK);
+        } catch (InvalidUserRegistrationDataException e) {
+            return new ResponseEntity<>(dto, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping("/activation")

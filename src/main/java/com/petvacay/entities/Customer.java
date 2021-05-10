@@ -1,9 +1,6 @@
 package com.petvacay.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +14,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "customers")
+@ToString(exclude = {"orders", "pets"})
 public class Customer extends User {
 
     @Column

@@ -55,7 +55,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/petvacay/api/v1/performer/filter",
+                .antMatchers(
                         "/petvacay/api/v1/registration",
                         "/petvacay/api/v1/registration/activation",
                         "/petvacay/api/v1/sign-in").permitAll()

@@ -1,6 +1,5 @@
 package com.petvacay.dto.user;
 
-import com.petvacay.entities.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,5 +19,5 @@ public class UserRegistrationDto {
 
     private String password;
 
-    private Role role;
+    private Long roleId;
 }
