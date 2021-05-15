@@ -32,6 +32,9 @@ public class User {
     @Column(nullable = false)
     protected String lastName;
 
+    @Column(columnDefinition = "boolean default false")
+    protected boolean isInfoFilled;
+
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false)
     protected Role role;

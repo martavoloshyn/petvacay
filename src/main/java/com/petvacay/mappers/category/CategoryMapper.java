@@ -31,4 +31,10 @@ public class CategoryMapper implements GeneralMapper<Category, CategoryDTO> {
         models.forEach(model -> dtos.add(convertToDto(model)));
         return dtos;
     }
+
+    public List<Category> convertListToModel(List<CategoryDTO> dtos) {
+        List<Category> models = new ArrayList<>();
+        dtos.forEach(dto -> models.add(convertToModel(dto)));
+        return models;
+    }
 }

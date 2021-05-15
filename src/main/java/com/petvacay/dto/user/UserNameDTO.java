@@ -16,4 +16,6 @@ public class UserNameDTO {
     private String firstName;
 
     private String lastName;
+
+    private boolean isInfoFilled;
 }

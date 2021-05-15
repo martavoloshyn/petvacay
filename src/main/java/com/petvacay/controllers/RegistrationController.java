@@ -1,5 +1,7 @@
 package com.petvacay.controllers;
 
+import com.petvacay.dto.customer.CustomerRegistrationDTO;
+import com.petvacay.dto.performer.PerformerRegistrationDTO;
 import com.petvacay.dto.user.UserRegistrationDto;
 import com.petvacay.exceptions.InvalidUserRegistrationDataException;
 import com.petvacay.services.UserService;
@@ -28,6 +30,18 @@ public class RegistrationController {
         } catch (InvalidUserRegistrationDataException e) {
             return new ResponseEntity<>(dto, HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PostMapping("/customer")
+    public ResponseEntity<CustomerRegistrationDTO> registerCustomer(@RequestBody CustomerRegistrationDTO dto) {
+        userService.registerCustomer(dto);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
+    }
+
+    @PostMapping("/performer")
+    public ResponseEntity<PerformerRegistrationDTO> registerPerformer(@RequestBody PerformerRegistrationDTO dto) {
+        userService.registerPerformer(dto);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @PutMapping("/activation")

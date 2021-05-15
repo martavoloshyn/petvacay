@@ -13,6 +13,7 @@ public class UserNameMapper implements GeneralMapper<User, UserNameDTO> {
                 .userId(model.getUserId())
                 .firstName(model.getFirstName())
                 .lastName(model.getLastName())
+                .isInfoFilled(model.isInfoFilled())
                 .build();
     }
 
@@ -22,6 +23,7 @@ public class UserNameMapper implements GeneralMapper<User, UserNameDTO> {
                 .firstName(dto.getFirstName())
                 .lastName(dto.getLastName())
                 .userId(dto.getUserId())
+                .isInfoFilled(dto.isInfoFilled())
                 .build();
     }
 }

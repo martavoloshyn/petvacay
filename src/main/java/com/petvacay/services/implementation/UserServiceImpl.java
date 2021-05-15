@@ -4,16 +4,20 @@ import com.petvacay.constants.ConstantMessage;
 import com.petvacay.constants.ErrorMessage;
 import com.petvacay.constants.UserStatusConst;
 import com.petvacay.dto.authentication.AuthenticationRequestDto;
+import com.petvacay.dto.customer.CustomerRegistrationDTO;
+import com.petvacay.dto.performer.PerformerRegistrationDTO;
+import com.petvacay.dto.user.UserNameDTO;
 import com.petvacay.dto.user.UserRegistrationDto;
-import com.petvacay.entities.User;
-import com.petvacay.entities.UserActivationRequest;
+import com.petvacay.entities.*;
 import com.petvacay.exceptions.IncorrectPasswordException;
 import com.petvacay.exceptions.InvalidEmailException;
 import com.petvacay.exceptions.InvalidUserRegistrationDataException;
 import com.petvacay.exceptions.UserNotFoundByEmail;
+import com.petvacay.mappers.category.CategoryMapper;
+import com.petvacay.mappers.pet.NewPetMapper;
+import com.petvacay.mappers.user.UserNameMapper;
 import com.petvacay.mappers.user.UserRegistrationMapper;
-import com.petvacay.repositories.UserActivationRequestRepository;
-import com.petvacay.repositories.UserRepository;
+import com.petvacay.repositories.*;
 import com.petvacay.services.MailSender;
 import com.petvacay.services.UserService;
 import com.petvacay.services.UserStatusService;
@@ -23,7 +27,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -35,6 +41,12 @@ public class UserServiceImpl implements UserService {
     private UserStatusService userStatusService;
     private UserActivationRequestRepository userActivationRequestRepository;
     private MailSender mailSender;
+    private CustomerRepository customerRepository;
+    private PetRepository petRepository;
+    private PerformerRepository performerRepository;
+    private CategoryMapper categoryMapper;
+    private NewPetMapper newPetMapper;
+    private UserNameMapper userNameMapper;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository,
@@ -42,13 +54,25 @@ public class UserServiceImpl implements UserService {
                            UserRegistrationMapper userRegistrationMapper,
                            UserStatusService userStatusService,
                            UserActivationRequestRepository userActivationRequestRepository,
-                           MailSender mailSender) {
+                           MailSender mailSender,
+                           CustomerRepository customerRepository,
+                           PetRepository petRepository,
+                           PerformerRepository performerRepository,
+                           CategoryMapper categoryMapper,
+                           NewPetMapper newPetMapper,
+                           UserNameMapper userNameMapper) {
         this.userRepository = userRepository;
         this.validator = validator;
         this.userRegistrationMapper = userRegistrationMapper;
         this.userStatusService = userStatusService;
         this.userActivationRequestRepository = userActivationRequestRepository;
         this.mailSender = mailSender;
+        this.customerRepository = customerRepository;
+        this.petRepository = petRepository;
+        this.performerRepository = performerRepository;
+        this.categoryMapper = categoryMapper;
+        this.newPetMapper = newPetMapper;
+        this.userNameMapper = userNameMapper;
     }
 
     @Override
@@ -82,9 +106,6 @@ public class UserServiceImpl implements UserService {
         if (userRepository.findByEmail(userRegistrationDto.getEmail()) != null) {
             map.put("duplicateEmail", ErrorMessage.DUPLICATE_EMAIL);
         }
-        if (!validator.validatePassword(userRegistrationDto.getPassword())) {
-            map.put("invalidPassword", ErrorMessage.INVALID_USER_PASSWORD);
-        }
         if (!map.isEmpty()) {
             throw new InvalidUserRegistrationDataException(map);
         }
@@ -96,9 +117,23 @@ public class UserServiceImpl implements UserService {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setUserStatus(userStatusService.findStatus(UserStatusConst.NOT_ACTIVATED));
-        user = userRepository.save(user);
+        user.setInfoFilled(false);
 
         UserActivationRequest userActivationRequest = new UserActivationRequest(user.getUserId());
+        ;
+
+        if (user.getRole().getRoleName().equals("Customer")) {
+            Customer customer = new Customer(user);
+            customer.setUserId(user.getUserId());
+            customerRepository.save(customer);
+            userActivationRequest = new UserActivationRequest(customer.getUserId());
+        } else if (user.getRole().getRoleName().equals("Performer")) {
+            Performer performer = new Performer(user);
+            performer.setUserId(user.getUserId());
+            performerRepository.save(performer);
+            userActivationRequest = new UserActivationRequest(performer.getUserId());
+        }
+
         userActivationRequestRepository.save(userActivationRequest);
 
         String message = ConstantMessage.ACTIVATION_EMAIL_TEXT
@@ -117,5 +152,48 @@ public class UserServiceImpl implements UserService {
         user.setUserStatus(userStatusService.findStatus(UserStatusConst.ACTIVATED));
 
         userRepository.save(user);
+    }
+
+    @Override
+    public void registerCustomer(CustomerRegistrationDTO dto) {
+        Customer customer = customerRepository.getOne(dto.getUserId());
+        setCustomerProperties(dto, customer);
+        customerRepository.save(customer);
+        List<Pet> pets = new ArrayList<>();
+        dto.getPets().forEach(pet -> pets.add(newPetMapper.convertToModel(pet)));
+        pets.forEach(pet -> pet.setCustomer(customer));
+        pets.forEach(pet -> petRepository.save(pet));
+    }
+
+    @Override
+    public void registerPerformer(PerformerRegistrationDTO dto) {
+        Performer performer = performerRepository.getOne(dto.getUserId());
+        setPerformerProperties(dto, performer);
+        performerRepository.save(performer);
+    }
+
+    @Override
+    public UserNameDTO getUserById(Long userId) {
+        return userNameMapper.convertToDto(userRepository.getUserByUserId(userId));
+    }
+
+    private void setPerformerProperties(PerformerRegistrationDTO dto, Performer performer) {
+        performer.setAboutInfo(dto.getAboutInfo());
+        performer.setApartment(dto.getApartment());
+        performer.setBirthDate(dto.getBirthDate());
+        performer.setBuilding(dto.getBuilding());
+        performer.setCardNumber(dto.getCardNumber());
+        performer.setCategories(categoryMapper.convertListToModel(dto.getCategories()));
+        performer.setPhoneNumber(dto.getPhoneNumber());
+        performer.setStreet(dto.getStreet());
+        performer.setCity(dto.getCity());
+        performer.setInfoFilled(true);
+    }
+
+    private void setCustomerProperties(CustomerRegistrationDTO dto, Customer customer) {
+        customer.setPhoneNumber(dto.getPhoneNumber());
+        customer.setCity(dto.getCity());
+        customer.setAboutInfo(dto.getAboutInfo());
+        customer.setInfoFilled(true);
     }
 }

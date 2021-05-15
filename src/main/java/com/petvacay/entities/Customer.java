@@ -23,7 +23,7 @@ public class Customer extends User {
     @Column(length = 1000)
     private String aboutInfo;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String phoneNumber;
 
     @OneToMany(mappedBy = "customer")
@@ -33,6 +33,6 @@ public class Customer extends User {
     private List<Pet> pets;
 
     public Customer(User user) {
-        super(user.userId, user.email, user.password, user.firstName, user.lastName, user.role, user.userStatus);
+        super(user.userId, user.email, user.password, user.firstName, user.lastName, user.isInfoFilled, user.role, user.userStatus);
     }
 }

@@ -1,6 +1,5 @@
 package com.petvacay.dto.pet;
 
-import com.petvacay.entities.PetSize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,10 +11,7 @@ import java.sql.Timestamp;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PetDetailedInfoDTO {
-
-    private long petId;
-
+public class NewPetDTO {
     private String type;
 
     private String name;
@@ -32,5 +28,5 @@ public class PetDetailedInfoDTO {
 
     private boolean isExotic;
 
-    private PetSize petSize;
+    private long petSizeId;
 }

@@ -29,7 +29,7 @@ public class Performer extends User {
     @Column
     private String apartment;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private String phoneNumber;
 
     @Column(length = 1000)
@@ -38,7 +38,7 @@ public class Performer extends User {
     @Column
     private String cardNumber;
 
-    @Column(nullable = false)
+    @Column
     private Timestamp birthDate;
 
     @OneToMany(mappedBy = "performer")
@@ -58,6 +58,6 @@ public class Performer extends User {
     private List<Category> categories;
 
     public Performer(User user) {
-        super(user.userId, user.email, user.password, user.firstName, user.lastName, user.role, user.userStatus);
+        super(user.userId, user.email, user.password, user.firstName, user.lastName, user.isInfoFilled, user.role, user.userStatus);
     }
 }
