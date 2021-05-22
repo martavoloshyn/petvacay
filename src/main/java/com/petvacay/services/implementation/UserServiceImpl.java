@@ -47,6 +47,7 @@ public class UserServiceImpl implements UserService {
     private CategoryMapper categoryMapper;
     private NewPetMapper newPetMapper;
     private UserNameMapper userNameMapper;
+    private GalleryRepository galleryRepository;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository,
@@ -60,7 +61,8 @@ public class UserServiceImpl implements UserService {
                            PerformerRepository performerRepository,
                            CategoryMapper categoryMapper,
                            NewPetMapper newPetMapper,
-                           UserNameMapper userNameMapper) {
+                           UserNameMapper userNameMapper,
+                           GalleryRepository galleryRepository) {
         this.userRepository = userRepository;
         this.validator = validator;
         this.userRegistrationMapper = userRegistrationMapper;
@@ -73,6 +75,7 @@ public class UserServiceImpl implements UserService {
         this.categoryMapper = categoryMapper;
         this.newPetMapper = newPetMapper;
         this.userNameMapper = userNameMapper;
+        this.galleryRepository = galleryRepository;
     }
 
     @Override
@@ -118,9 +121,9 @@ public class UserServiceImpl implements UserService {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setUserStatus(userStatusService.findStatus(UserStatusConst.NOT_ACTIVATED));
         user.setInfoFilled(false);
+        user.setGallery(galleryRepository.save(new Gallery()));
 
         UserActivationRequest userActivationRequest = new UserActivationRequest(user.getUserId());
-        ;
 
         if (user.getRole().getRoleName().equals("Customer")) {
             Customer customer = new Customer(user);

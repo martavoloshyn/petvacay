@@ -58,6 +58,6 @@ public class Performer extends User {
     private List<Category> categories;
 
     public Performer(User user) {
-        super(user.userId, user.email, user.password, user.firstName, user.lastName, user.isInfoFilled, user.role, user.userStatus);
+        super(user.userId, user.email, user.password, user.firstName, user.lastName, user.isInfoFilled, user.role, user.userStatus, user.gallery);
     }
 }

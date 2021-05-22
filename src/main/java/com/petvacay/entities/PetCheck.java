@@ -36,4 +36,8 @@ public class PetCheck {
 
     @Column(length = 1000)
     private String response_comment;
+
+    @OneToOne
+    @JoinColumn(name = "gallery_id", referencedColumnName = "id")
+    protected Gallery gallery;
 }

@@ -9,7 +9,12 @@ public class ErrorMessage {
     public static final String NOT_AUTHENTICATED = "User is not authenticated by this email: ";
     public static final String USER_NOT_FOUND_WITH_THIS_EMAIL = "The user does not exists by this email: ";
     public static final String INVALID_EMAIL_OR_PASSWORD = "Invalid email or password ";
-    public static final String INVALID_USER_PASSWORD = "Weak password. Should contain 4-15 symbols";
     public static final String INVALID_EMAIL = "Email not correct";
     public static final String DUPLICATE_EMAIL = "Duplicate email";
+    public static final String INVALID_CHARACTER = "Sorry! Filename contains invalid path sequence ";
+    public static final String COULD_NOT_STORE_FILE = " could not be stored file. Please try again!";
+    public static final String FILE_NOT_FOUND = "File not found: ";
+    public static final String COULD_NOT_SET_CREDENTIALS = "Couldn't set Google credentials from firebase configuration file";
+    public static final String SUCH_EXTENSION_IS_NOT_ALLOWED = "Such extension not allowed";
+    public static final String FILE_NOT_FOUND_BY_NAME_AND_USER_ID = "File not found in DB: ";
 }

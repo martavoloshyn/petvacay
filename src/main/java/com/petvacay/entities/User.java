@@ -42,4 +42,8 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "user_status_id", nullable = false)
     protected UserStatus userStatus;
+
+    @OneToOne
+    @JoinColumn(name = "gallery_id", referencedColumnName = "id")
+    protected Gallery gallery;
 }
